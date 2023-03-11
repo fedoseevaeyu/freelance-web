@@ -1,6 +1,6 @@
 {
   "name": "@freelance/web",
-  "version": "0.1.0-dev.1",
+  "version": "0.1.0-dev.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -24,7 +24,8 @@
     "clsx": "^1.2.1",
     "next": "^13.2.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-spring": "^9.7.1"
   },
   "devDependencies": {
     "@types/node": "^18.15.0",
