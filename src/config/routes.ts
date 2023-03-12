@@ -4,8 +4,8 @@ enum Route {
   Search = "/search",
   SearchDeveloper = "/search?type=developer",
   SearchJob = "/search?type=job",
-  SignIn = "/sing-in",
-  SignUp = "/sing-up",
+  SignIn = "/sign-in",
+  SignUp = "/sign-up",
   Agreement = "/agreement",
   Privacy = "/privacy",
 }

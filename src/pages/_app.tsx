@@ -1,6 +1,7 @@
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import { MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "@styles/globals.css";
 
@@ -21,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
           colorScheme: "light",
         }}
       >
+        <Notifications />
         <Component {...pageProps} />
       </MantineProvider>
     </QueryClientProvider>
