@@ -1,11 +1,12 @@
-import NextButton from "@app/(create)/service/components/NextButton";
-import { useServiceStore } from "@app/(create)/service/store";
-import Editor from "@components/Editor";
-import TextareaWithLetterCounter from "@components/TextareaWithLetterCounter";
 import { Button, Group, MultiSelect, Paper, Select } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
 
 import { FormState } from "../form-state";
+
+import NextButton from "@app/(create)/service/components/NextButton";
+import { useServiceStore } from "@app/(create)/service/store";
+import Editor from "@components/Editor";
+import TextareaWithLetterCounter from "@components/TextareaWithLetterCounter";
 
 const categoriesOptions = [
   {

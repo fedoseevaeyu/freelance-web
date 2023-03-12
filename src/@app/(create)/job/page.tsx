@@ -1,14 +1,15 @@
+import { LoadingOverlay, Stepper } from "@mantine/core";
+import { useForm } from "@mantine/form";
+
+import Step1 from "./steps/Step1";
+import Step2 from "./steps/Step2";
+
 import { FormState } from "@app/(create)/job/form-state";
 import { useJobStore } from "@app/(create)/job/store";
 import useSubmit from "@app/(create)/job/use-submit";
 import validateDescriptionInput from "@app/(create)/validate/description";
 import validatePriceInput from "@app/(create)/validate/price";
 import validateTitleInput from "@app/(create)/validate/title";
-import { LoadingOverlay, Stepper } from "@mantine/core";
-import { useForm } from "@mantine/form";
-
-import Step1 from "./steps/Step1";
-import Step2 from "./steps/Step2";
 
 const initialValues: FormState = {
   title: "",

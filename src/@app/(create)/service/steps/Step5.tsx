@@ -1,6 +1,3 @@
-import PrevButton from "@app/(create)/service/components/PrevButton";
-import { FormState } from "@app/(create)/service/form-state";
-import { useServiceStore } from "@app/(create)/service/store";
 import { Button, FileButton, Group, Image, Paper, Text } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
@@ -8,6 +5,10 @@ import { IconUpload, IconX } from "@tabler/icons-react";
 import React from "react";
 
 import NextButton from "../components/NextButton";
+
+import { useServiceStore } from "@app/(create)/service/store";
+import { FormState } from "@app/(create)/service/form-state";
+import PrevButton from "@app/(create)/service/components/PrevButton";
 
 export default function Step5({ formState }: { formState: UseFormReturnType<FormState> }) {
   const bannerImage = useServiceStore((store) => store.bannerImage);

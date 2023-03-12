@@ -1,8 +1,9 @@
 import { Group } from "@mantine/core";
 import clsx from "clsx";
+import Link from "next/link";
+
 import app from "config/app";
 import Route from "config/routes";
-import Link from "next/link";
 
 const isAuth = true;
 

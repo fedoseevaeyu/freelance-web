@@ -18,6 +18,7 @@
       "@/*": ["./src/*"],
       "@styles/*": ["./src/styles/*"],
       "@components/*": ["./src/components/*"],
+      "@domain/*": ["./src/domain/*"],
       "@utils/*": ["./src/utils/*"],
       "@app/*": ["./src/@app/*"],
       "config/*": ["./src/config/*"]

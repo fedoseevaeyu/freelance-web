@@ -1,11 +1,12 @@
-import { FormState } from "@app/(create)/job/form-state";
-import { useJobStore } from "@app/(create)/job/store";
-import Textarea from "@components/Textarea";
-import TextareaWithLetterCounter from "@components/TextareaWithLetterCounter";
 import { Button, FileButton, Group, Image, MultiSelect, Paper, Select } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
 import { IconX } from "@tabler/icons-react";
 import clsx from "clsx";
+
+import { FormState } from "@app/(create)/job/form-state";
+import { useJobStore } from "@app/(create)/job/store";
+import Textarea from "@components/Textarea";
+import TextareaWithLetterCounter from "@components/TextareaWithLetterCounter";
 
 const categoriesOptions = [
   {

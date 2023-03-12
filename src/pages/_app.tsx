@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import { MantineProvider } from "@mantine/core";
@@ -6,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "@styles/globals.css";
 import "dayjs/locale/ru";
 import { DatesProvider } from "@mantine/dates";
+dayjs.locale("ru");
 
 const client = new QueryClient();
 

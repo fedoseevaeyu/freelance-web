@@ -1,14 +1,15 @@
-import NextButton from "@app/(create)/service/components/NextButton";
-import PrevButton from "@app/(create)/service/components/PrevButton";
-import { FormState } from "@app/(create)/service/form-state";
-import { useServiceStore } from "@app/(create)/service/store";
 import { Button, Checkbox, Divider, Select, SimpleGrid, Textarea as T, Text, TextInput } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import { IconPlus } from "@tabler/icons-react";
+import React from "react";
+
+import NextButton from "@app/(create)/service/components/NextButton";
+import PrevButton from "@app/(create)/service/components/PrevButton";
+import { FormState } from "@app/(create)/service/form-state";
+import { useServiceStore } from "@app/(create)/service/store";
 import { decline } from "@utils/decline";
 import { range } from "@utils/range";
-import React from "react";
 
 const DELIVERY_DAYS = [...range(1, 7), 10, 12, 14, 15, 20, 30, 60, 90].map((e) => ({
   value: `${e}`,

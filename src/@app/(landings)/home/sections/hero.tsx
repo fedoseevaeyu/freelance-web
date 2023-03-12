@@ -1,10 +1,11 @@
 import { Button } from "@mantine/core";
 import clsx from "clsx";
-import Route from "config/routes";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import TextTransition from "@components/TextTransition";
 import { config } from "react-spring";
+
+import TextTransition from "@components/TextTransition";
+import Route from "config/routes";
 const forWho = ["разработчиков", "писателей", "видеоредакторов", "каждого"];
 
 export default function HeroSection() {

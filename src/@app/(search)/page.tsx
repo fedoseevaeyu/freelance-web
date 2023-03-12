@@ -1,6 +1,6 @@
-import Toolbar from "@app/(search)/components/Toolbar";
 import { Button, SimpleGrid } from "@mantine/core";
 
+import Toolbar from "@app/(search)/components/Toolbar";
 import { PostCard } from "@/@app/(search)/components/PostCard";
 
 function createItem(id: number) {

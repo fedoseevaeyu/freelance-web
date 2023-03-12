@@ -1,4 +1,3 @@
-import RoleTab from "@app/(auth)/sign-up/components/RoleTab";
 import {
   Anchor,
   Button,
@@ -11,10 +10,7 @@ import {
   Text,
   TextInput,
 } from "@mantine/core";
-import { emailFormValidate } from "@utils/validate/email";
-import { passwordFormValidate } from "@utils/validate/password";
 import clsx from "clsx";
-import Route from "config/routes";
 import Link from "next/link";
 import { useForm } from "@mantine/form";
 import axios, { AxiosError, AxiosResponse } from "axios";
@@ -23,7 +19,11 @@ import { upperFirst } from "@mantine/hooks";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import { Role } from "@/domain/role";
+import Route from "config/routes";
+import { passwordFormValidate } from "@utils/validate/password";
+import { emailFormValidate } from "@utils/validate/email";
+import RoleTab from "@app/(auth)/sign-up/components/RoleTab";
+import { Role } from "@domain/role";
 
 const initialValues = {
   email: "",

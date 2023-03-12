@@ -1,9 +1,9 @@
 import { Paper } from "@mantine/core";
 import clsx from "clsx";
-import Route from "config/routes";
 import { useRouter } from "next/router";
 
-import { Role } from "@/domain/role";
+import Route from "config/routes";
+import { Role } from "@domain/role";
 
 export default function RoleTab({
   title,

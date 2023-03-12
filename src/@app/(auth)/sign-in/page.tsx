@@ -1,13 +1,14 @@
 import { Anchor, Button, Container, Group, Paper, PasswordInput, Stack, Text, TextInput } from "@mantine/core";
-import { emailFormValidate } from "@utils/validate/email";
-import { passwordFormValidate } from "@utils/validate/password";
-import Route from "config/routes";
 import Link from "next/link";
 import { useForm } from "@mantine/form";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { showNotification } from "@mantine/notifications";
 import { upperFirst } from "@mantine/hooks";
 import { useRouter } from "next/router";
+
+import Route from "config/routes";
+import { passwordFormValidate } from "@utils/validate/password";
+import { emailFormValidate } from "@utils/validate/email";
 
 const initialValues = {
   email: "",

@@ -1,11 +1,11 @@
 import { Button, Group } from "@mantine/core";
 import clsx from "clsx";
-import app from "config/app";
-import Route from "config/routes";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { Role } from "@/domain/role";
+import app from "config/app";
+import Route from "config/routes";
+import { Role } from "@domain/role";
 
 const isAuth = true;
 const role: Role | null = null;

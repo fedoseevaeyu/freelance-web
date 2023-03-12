@@ -1,5 +1,6 @@
-import Textarea, { TextareaProps } from "@components/Textarea";
 import clsx from "clsx";
+
+import Textarea, { TextareaProps } from "@components/Textarea";
 
 type Props = { min: number; max: number; value: string } & Omit<TextareaProps, "minLength" | "maxLength">;
 

@@ -1,11 +1,12 @@
+import { Button, Checkbox, Group, Select, Textarea as T, Text } from "@mantine/core";
+import { UseFormReturnType } from "@mantine/form";
+import { IconTrash } from "@tabler/icons-react";
+import React from "react";
+
 import NextButton from "@app/(create)/service/components/NextButton";
 import PrevButton from "@app/(create)/service/components/PrevButton";
 import { FormState } from "@app/(create)/service/form-state";
 import { AnswerType } from "@app/(create)/service/page";
-import { Button, Group, Select, Textarea as T, Text, Checkbox } from "@mantine/core";
-import { UseFormReturnType } from "@mantine/form";
-import { IconTrash } from "@tabler/icons-react";
-import React from "react";
 
 export default function Step4({ formState }: { formState: UseFormReturnType<FormState> }) {
   return (

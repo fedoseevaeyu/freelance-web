@@ -1,11 +1,12 @@
-import NextButton from "@app/(create)/service/components/NextButton";
-import PrevButton from "@app/(create)/service/components/PrevButton";
-import { FormState } from "@app/(create)/service/form-state";
-import { useServiceStore } from "@app/(create)/service/store";
 import { Button, Group, Text, TextInput } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import { IconX } from "@tabler/icons-react";
+
+import NextButton from "@app/(create)/service/components/NextButton";
+import PrevButton from "@app/(create)/service/components/PrevButton";
+import { FormState } from "@app/(create)/service/form-state";
+import { useServiceStore } from "@app/(create)/service/store";
 
 export default function Step2({ formState }: { formState: UseFormReturnType<FormState> }) {
   const features = useServiceStore((store) => store.features);

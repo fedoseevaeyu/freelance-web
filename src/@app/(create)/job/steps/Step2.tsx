@@ -1,9 +1,10 @@
-import { useJobStore } from "@app/(create)/job/store";
 import { Button, Group, NumberInput, Paper, Text } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { UseFormReturnType } from "@mantine/form";
 
 import { FormState } from "../form-state";
+
+import { useJobStore } from "@app/(create)/job/store";
 
 export default function Step2({ formState }: { formState: UseFormReturnType<FormState> }) {
   const setActive = useJobStore((store) => store.setActive);

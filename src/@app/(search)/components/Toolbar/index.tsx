@@ -1,8 +1,9 @@
-import SelectWithSkeleton from "@components/SelectWithSkeleton";
 import { Button, Select, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+
+import SelectWithSkeleton from "@components/SelectWithSkeleton";
 
 const categoriesLoading = false;
 const categoriesOptions = [

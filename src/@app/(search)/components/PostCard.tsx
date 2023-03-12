@@ -1,8 +1,9 @@
 import { Badge, Button, Card, Group, Image, Text, useMantineColorScheme } from "@mantine/core";
-import formatPrice from "@utils/format-price";
-import { sanitize } from "@utils/sanitize";
 import clsx from "clsx";
 import Link from "next/link";
+
+import formatPrice from "@utils/format-price";
+import { sanitize } from "@utils/sanitize";
 
 type PostCardProps = {
   title: string;
