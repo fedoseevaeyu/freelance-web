@@ -4,11 +4,11 @@ specifiers:
   '@emotion/react': ^11.10.6
   '@emotion/server': ^11.10.0
   '@mantine/core': ^6.0.1
+  '@mantine/dates': ^6.0.1
   '@mantine/form': ^6.0.1
   '@mantine/hooks': ^6.0.1
   '@mantine/next': ^6.0.1
   '@mantine/notifications': ^6.0.1
-  '@tabler/icons': ^2.10.0
   '@tabler/icons-react': ^2.10.0
   '@tanstack/react-query': ^4.26.1
   '@types/axios': ^0.14.0
@@ -39,11 +39,11 @@ dependencies:
   '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
   '@emotion/server': 11.10.0
   '@mantine/core': 6.0.1_7atxah5aiy65tdrz25o24k4n44
+  '@mantine/dates': 6.0.1_7kk7ko2teecziu6wt4lvufnzpm
   '@mantine/form': 6.0.1_react@18.2.0
   '@mantine/hooks': 6.0.1_react@18.2.0
   '@mantine/next': 6.0.1_qqau3dvbojnwvgou4gzbrwl7sy
   '@mantine/notifications': 6.0.1_hdfbaha3esn2nmwxggs2gvheiu
-  '@tabler/icons': 2.10.0
   '@tabler/icons-react': 2.10.0_react@18.2.0
   '@tanstack/react-query': 4.26.1_rn3qun46chv63cytpfol3dndvi
   axios: 1.3.4
@@ -1742,6 +1742,21 @@ packages:
     transitivePeerDependencies:
       - '@emotion/react'
       - '@types/react'
+    dev: false
+
+  /@mantine/dates/6.0.1_7kk7ko2teecziu6wt4lvufnzpm:
+    resolution: {integrity: sha512-ZoKrlEN0YF96Jxr7bFSwZtYm+OSWdc/x8MHFaVmqsN4xkW0WFdv9WyWPLYW+GCeSrw5jcj+XC3dWEY2g/RCacw==}
+    peerDependencies:
+      '@mantine/core': 6.0.1
+      '@mantine/hooks': 6.0.1
+      dayjs: '>=1.0.0'
+      react: '>=16.8.0'
+    dependencies:
+      '@mantine/core': 6.0.1_7atxah5aiy65tdrz25o24k4n44
+      '@mantine/hooks': 6.0.1_react@18.2.0
+      '@mantine/utils': 6.0.1_react@18.2.0
+      dayjs: 1.11.7
+      react: 18.2.0
     dev: false
 
   /@mantine/form/6.0.1_react@18.2.0:
