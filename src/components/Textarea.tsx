@@ -1,15 +1,14 @@
 import { ReactNode } from "react";
-import { Textarea as T, TextareaProps, useMantineColorScheme } from "@mantine/core";
-import clsx from "clsx";
+import { Textarea as T, TextareaProps as TP } from "@mantine/core";
 
-type Props = {
+export type TextareaProps = {
   id: string;
   labelString: string;
   required?: boolean;
   wordsComponent?: ReactNode;
-} & TextareaProps;
+} & TP;
 
-export default function Textarea({ labelString, wordsComponent, ...props }: Props) {
+export default function Textarea({ labelString, wordsComponent, ...props }: TextareaProps) {
   return (
     <div className="mt-4">
       <label className="text-sm font-bold py-2 text-[#495057]" htmlFor={props.id}>

@@ -1,14 +1,4 @@
-import {
-  Anchor,
-  Button,
-  Container,
-  Group,
-  Paper,
-  PasswordInput,
-  Stack,
-  Text,
-  TextInput,
-} from "@mantine/core";
+import { Anchor, Button, Container, Group, Paper, PasswordInput, Stack, Text, TextInput } from "@mantine/core";
 import { emailFormValidate } from "@utils/validate/email";
 import { passwordFormValidate } from "@utils/validate/password";
 import Route from "config/routes";
