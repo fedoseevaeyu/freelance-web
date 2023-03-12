@@ -8,13 +8,11 @@ import {
   Stack,
   Text,
   TextInput,
-  useMantineColorScheme,
 } from "@mantine/core";
 import { emailFormValidate } from "@utils/validate/email";
 import { passwordFormValidate } from "@utils/validate/password";
 import Route from "config/routes";
 import Link from "next/link";
-import clsx from "clsx";
 import { useForm } from "@mantine/form";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { showNotification } from "@mantine/notifications";
