@@ -91,12 +91,10 @@ export default function Toolbar() {
         onChange={handleChangeParam("category")}
       />
       <Select
-        label="Что вы ищите"
+        label="Я ищу"
         name="type"
         data={typeOptions}
-        required
         {...formState.getInputProps("type")}
-        placeholder="Выберите, что вы ищите"
         defaultValue={(query.type as string) || "developer"}
         onChange={handleChangeParam("type")}
       />
