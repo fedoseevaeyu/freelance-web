@@ -1,5 +1,4 @@
-import { Paper } from "@mantine/core";
-import clsx from "clsx";
+import { Paper, clsx } from "@mantine/core";
 import { useRouter } from "next/router";
 
 import Route from "config/routes";

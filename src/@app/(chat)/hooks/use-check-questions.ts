@@ -1,15 +1,15 @@
-import { showNotification } from "@mantine/notifications";
-import axios, { isCancel } from "axios";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+import useUser from "@lib/use-user";
+import { handleAxiosError } from "@lib/notify";
 import Route from "config/routes";
 import { Role } from "@domain/role";
 
-const role = Role.Client;
-
 export default function useCheckQuestions(chatId?: string) {
   const [questionsAnswered, setQuestionsAnswered] = useState<boolean | undefined>(undefined);
+  const { user } = useUser();
   const { asPath, replace } = useRouter();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function useCheckQuestions(chatId?: string) {
     }
 
     const controller = new AbortController();
-    if (role === Role.Client) {
+    if (user?.role === Role.Client) {
       axios
         .get<{ questionAnswered: boolean }>(`/api/chat/${chatId}/info`, {
           headers: {
@@ -35,18 +35,11 @@ export default function useCheckQuestions(chatId?: string) {
           signal: controller.signal,
         })
         .then((d) => setQuestionsAnswered(d.data.questionAnswered))
-        .catch((err) => {
-          if (isCancel(err)) return;
-          showNotification({
-            title: "Ошибка",
-            message: (err?.response?.data as any)?.message || "Что-то пошло не так...",
-            color: "red",
-          });
-        });
+        .catch(handleAxiosError);
     }
 
     return () => controller.abort();
-  }, [chatId, asPath, replace]);
+  }, [chatId, asPath, replace, user]);
 
   useEffect(() => {
     if (questionsAnswered === false) {

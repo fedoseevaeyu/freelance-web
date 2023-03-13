@@ -3,6 +3,7 @@ import { showNotification } from "@mantine/notifications";
 import { useState } from "react";
 import { Socket } from "socket.io-client";
 
+import { handleAxiosError } from "@lib/notify";
 import { uploadFiles } from "@utils/upload";
 import { useChatModalsStore } from "@app/(chat)/store/modals";
 
@@ -20,18 +21,11 @@ export default function UploadWorkModal({ io }: { io?: Socket }) {
           e.preventDefault();
           if (attachments.length === 0)
             return showNotification({
-              message: "Please select at least one attachment",
+              message: "Пожалуйста, выберите хотя бы одно вложение",
               color: "red",
             });
           setLoading(true);
-          const token = "";
-          const data = await uploadFiles(attachments, token).catch((e) => {
-            showNotification({
-              message: e?.response?.data?.message || "Что-то пошло не так...",
-              color: "red",
-            });
-            return null;
-          });
+          const data = await uploadFiles(attachments).catch(handleAxiosError);
           if (data === null) return setLoading(false);
           const urls = data.data.paths;
           io?.emit("message", {
@@ -49,7 +43,7 @@ export default function UploadWorkModal({ io }: { io?: Socket }) {
       >
         <FileInput
           multiple
-          label="Select Files(Max 10MB)"
+          label="Выберите файлы (до 10MB)"
           onChange={(e) => {
             const validFiles = e.filter((file) => file.size < 10000000);
             if (validFiles.length < e.length) {

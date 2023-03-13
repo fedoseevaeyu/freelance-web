@@ -1,5 +1,4 @@
-import { Group } from "@mantine/core";
-import clsx from "clsx";
+import { Group, clsx } from "@mantine/core";
 import Link from "next/link";
 
 import app from "config/app";
@@ -23,7 +22,7 @@ export default function Footer() {
     <footer className="h-[80px] bg-white px-4  border-t-[#e9ecef] border-t border-solid">
       <div className="container flex items-center justify-between h-full">
         <Link
-          href={isAuth ? Route.Dashboard : Route.Home}
+          href={isAuth ? Route.My : Route.Home}
           className={clsx("flex items-center gap-[12px]", {
             "lg:min-w-[183px]": !isAuth,
           })}

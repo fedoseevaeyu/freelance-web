@@ -1,5 +1,4 @@
-import { Badge, Button, Card, Group, Image, Text, useMantineColorScheme } from "@mantine/core";
-import clsx from "clsx";
+import { Badge, Button, Card, Group, Image, Text } from "@mantine/core";
 import Link from "next/link";
 
 import formatPrice from "@utils/format-price";
@@ -20,7 +19,7 @@ type PostCardProps = {
 export function PostCard({ author, description, price, cover, slug, title, badgeLabel }: PostCardProps) {
   return (
     <Card shadow="sm" p="lg" radius="md" withBorder className="max-w-sm w-full min-h-[21rem]">
-      <Image src={cover} height={160} />
+      <Image src={cover} height={160} alt={title} />
 
       <Group position="apart" mt="md" mb="xs">
         <Text weight={500} lineClamp={2}>

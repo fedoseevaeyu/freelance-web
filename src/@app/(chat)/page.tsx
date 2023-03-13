@@ -1,7 +1,9 @@
+// eslint-disable-next-line import/order
 import dynamic from "next/dynamic";
 
 import useCheckQuestions from "@app/(chat)/hooks/use-check-questions";
 import useChatConfig from "@app/(chat)/hooks/use-chat-config";
+// eslint-disable-next-line import/order
 import { Role } from "@domain/role";
 
 const ChatContainer = dynamic(() => import("@app/(chat)/components/Container"), {
@@ -9,6 +11,7 @@ const ChatContainer = dynamic(() => import("@app/(chat)/components/Container"), 
   loading: () => <div>Загрузка...</div>,
 });
 
+// eslint-disable-next-line import/order
 import { ChatSidebar } from "@app/(chat)/components/Sidebar";
 
 import { LoadingOverlay } from "@mantine/core";

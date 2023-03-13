@@ -1,7 +1,7 @@
 import { Button, SimpleGrid } from "@mantine/core";
 
 import Toolbar from "@app/(search)/components/Toolbar";
-import { PostCard } from "@/@app/(search)/components/PostCard";
+import { PostCard } from "@app/(search)/components/PostCard";
 
 function createItem(id: number) {
   return {
@@ -31,7 +31,9 @@ const hasNextPage = false;
 const isFetchingNextPage = false;
 
 export default function Page() {
-  function fetchNextPage() {}
+  function fetchNextPage() {
+    // todo
+  }
 
   return (
     <div className="container pt-[32px] pb-[50px]">

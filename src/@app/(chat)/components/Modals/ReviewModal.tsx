@@ -4,6 +4,7 @@ import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 import { useState } from "react";
 
+import { handleAxiosError } from "@lib/notify";
 import { useChatModalsStore } from "@app/(chat)/store/modals";
 
 const initialValues = {
@@ -32,8 +33,7 @@ export default function ReviewModal() {
                 authorization: `Bearer ${token}`,
               },
             })
-            .then((_) => {
-              setLoading(false);
+            .then(() => {
               showNotification({
                 title: "Успешно",
                 message: "Ваш отзыв отправлен",
@@ -42,14 +42,8 @@ export default function ReviewModal() {
 
               close();
             })
-            .catch((err) => {
-              setLoading(false);
-              showNotification({
-                title: "Ошибка",
-                message: (err?.response?.data as any)?.message || "Что-то пошло не так...",
-                color: "red",
-              });
-            });
+            .catch(handleAxiosError)
+            .finally(() => setLoading(false));
         })}
       >
         <Rating

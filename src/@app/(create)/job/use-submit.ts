@@ -4,12 +4,15 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 
+import useUser from "@lib/use-user";
+import { handleAxiosError } from "@lib/notify";
 import { uploadFiles } from "@utils/upload";
 import { useJobStore } from "@app/(create)/job/store";
 import { FormState } from "@app/(create)/job/form-state";
 
 export default function useSubmit(formState: UseFormReturnType<FormState>) {
   const { push } = useRouter();
+  const { isAuth } = useUser();
 
   const tags = useJobStore((store) => store.tags);
   const files = useJobStore((store) => store.files);
@@ -20,26 +23,22 @@ export default function useSubmit(formState: UseFormReturnType<FormState>) {
   const handleSubmit = useCallback(
     async (data: typeof formState.values) => {
       const { category, description, price, title } = data;
-      const token = null; // todo: check session
-      if (!token)
+      if (!isAuth) {
         return showNotification({
           message: "Сессия истекла. Пожалуйста, войдите снова.",
           color: "red",
         });
+      }
       setLoading(true);
       let urls: string[] = [];
       if (files.length > 0) {
-        const data = await uploadFiles(files, token).catch((err) => {
-          showNotification({
-            message: err?.response?.data?.message || "Что-то пошло не так...",
-            color: "red",
-          });
-          setLoading(false);
-          return null;
-        });
+        const data = await uploadFiles(files)
+          .catch(handleAxiosError)
+          .finally(() => setLoading(false));
         if (data === null) return;
         urls = data.data.paths;
       }
+      const token = "";
       await axios
         .post(
           "/api/jobs",
@@ -64,17 +63,9 @@ export default function useSubmit(formState: UseFormReturnType<FormState>) {
             message: "Заказ успешно создан!",
             color: "green",
           });
-          setTimeout(() => {
-            const username = "test";
-            push(`/profile/${username}/jobs/${d.slug}`);
-          }, 1000);
+          push(`/my/jobs/${d.slug}`);
         })
-        .catch((err) => {
-          showNotification({
-            message: err?.response?.data?.message || "Что-то пошло не так...",
-            color: "red",
-          });
-        })
+        .catch(handleAxiosError)
         .finally(() => setLoading(false));
     },
     [deadline, files, formState, push, tags],

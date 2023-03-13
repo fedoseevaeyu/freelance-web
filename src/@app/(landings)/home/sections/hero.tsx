@@ -1,5 +1,4 @@
-import { Button } from "@mantine/core";
-import clsx from "clsx";
+import { Button, clsx } from "@mantine/core";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { config } from "react-spring";
@@ -35,7 +34,7 @@ export default function HeroSection() {
       </h1>
       <p className="text-xl text-gray-600 mb-8 font-lighter text-center">Доверьте свою работу опытным фрилансерам</p>
       <div className="mt-4 mb-8" data-aos="zoom-in">
-        <Link href={`${Route.SignIn}?to=${Route.Dashboard}`} passHref>
+        <Link href={`${Route.SignIn}?to=${Route.My}`} passHref>
           <Button
             variant="filled"
             className="bg-black hover:bg-gray-900 duration-[125ms] transition-all hover:scale-110"

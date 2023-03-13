@@ -9,16 +9,17 @@ import {
   Stack,
   Text,
   TextInput,
+  clsx,
 } from "@mantine/core";
-import clsx from "clsx";
 import Link from "next/link";
 import { useForm } from "@mantine/form";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { showNotification } from "@mantine/notifications";
 import { upperFirst } from "@mantine/hooks";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+import { handleAxiosError } from "@lib/notify";
 import Route from "config/routes";
 import { passwordFormValidate } from "@utils/validate/password";
 import { emailFormValidate } from "@utils/validate/email";
@@ -84,23 +85,13 @@ export default function Page() {
       })
       .then((e: AxiosResponse) => e.data)
       .then((e: { username: string }) => {
-        // set global user
-        // set cookie
         showNotification({
           message: `Вы успешно зарегестрированны, @${upperFirst(e.username)}!`,
           color: "green",
         });
-        setTimeout(() => {
-          replace((query.to as string) || "/dashboard");
-        }, 1000);
+        void replace((query.to as string) || Route.My);
       })
-      .catch((err: AxiosError<{ errors?: { message: string }[]; message: string }>) => {
-        const data = err?.response?.data;
-        showNotification({
-          message: data?.errors?.[0].message || data?.message || "Что-то пошло не так...",
-          color: "red",
-        });
-      });
+      .catch(handleAxiosError);
   }
 
   return (
@@ -196,12 +187,16 @@ export default function Page() {
               className={clsx("bg-pink-400 hover:bg-pink-500")}
               onClick={() => {
                 setRole(roleSelect);
-                const newQuery = {
+                const newQuery: {
+                  role: Role | undefined;
+                  roleSelect: Role | undefined;
+                } = {
                   ...query,
+                  roleSelect: undefined,
                   role: roleSelect,
-                } as any;
+                };
                 delete newQuery.roleSelect;
-                replace({
+                void replace({
                   pathname: Route.SignUp,
                   query: newQuery,
                 });

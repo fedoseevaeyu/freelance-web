@@ -45,7 +45,7 @@ export default function useChatConfig() {
         verified: true,
       },
     });
-    const controller = new AbortController();
+    // const controller = new AbortController();
     // axios
     //   .get<ChatDetails>(`/api/chat/${query.id}`, {
     //     headers: {

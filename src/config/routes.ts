@@ -1,9 +1,12 @@
 enum Route {
   Home = "/",
-  Dashboard = "/dashboard",
+  My = "/my",
+  MyOrders = "/my/orders",
   Search = "/search",
   SearchDeveloper = "/search?type=developer",
   SearchJob = "/search?type=job",
+  CreateJob = "/create/job",
+  CreateService = "/create/service",
   SignIn = "/sign-in",
   SignUp = "/sign-up",
   Agreement = "/agreement",

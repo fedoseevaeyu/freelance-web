@@ -1,8 +1,9 @@
 import { showNotification } from "@mantine/notifications";
-import axios, { isCancel } from "axios";
+import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Socket, io as socket } from "socket.io-client";
 
+import { handleAxiosError } from "@lib/notify";
 import { Role } from "@domain/role";
 import { message } from "@app/(chat)/components/Container";
 
@@ -15,12 +16,40 @@ export default function useChat(chatId: string, orderId: string) {
 
   const [complete, setCompleted] = useState(false);
 
+  const fetchMessages = useCallback(
+    async (appendMode?: "before" | "after", take?: number, skip?: number, reverse?: boolean) => {
+      const token = "";
+
+      await axios
+        .get<{ next?: number; messages: message[] }>(
+          `/api/chat/${orderId}${skip ? (take ? `?take=${take}&skip=${skip}` : `?skip=${skip}`) : ``}`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          },
+        )
+        .then((d) => d.data)
+        .then((data) => {
+          if (!appendMode) {
+            setMessages(reverse ? data.messages.reverse() : data.messages);
+          } else {
+            setMessages((prev) =>
+              appendMode === "before" ? [...data.messages, ...prev] : [...prev, ...data.messages],
+            );
+          }
+        })
+        .catch(handleAxiosError);
+    },
+    [orderId],
+  );
+
   useEffect(() => {
     void fetchMessages();
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
     }
-  }, []);
+  }, [fetchMessages]);
 
   useEffect(() => {
     if (window) {
@@ -77,41 +106,6 @@ export default function useChat(chatId: string, orderId: string) {
       clearTimeout(timeout);
     };
   }, [io]);
-
-  const fetchMessages = useCallback(
-    async (appendMode?: "before" | "after", take?: number, skip?: number, reverse?: boolean) => {
-      const token = "";
-
-      await axios
-        .get<{ next?: number; messages: message[] }>(
-          `/api/chat/${orderId}${skip ? (take ? `?take=${take}&skip=${skip}` : `?skip=${skip}`) : ``}`,
-          {
-            headers: {
-              authorization: `Bearer ${token}`,
-            },
-          },
-        )
-        .then((d) => d.data)
-        .then((data) => {
-          if (!appendMode) {
-            setMessages(reverse ? data.messages.reverse() : data.messages);
-          } else {
-            setMessages((prev) =>
-              appendMode === "before" ? [...data.messages, ...prev] : [...prev, ...data.messages],
-            );
-          }
-        })
-        .catch((err) => {
-          if (isCancel(err)) return;
-          showNotification({
-            title: "Ошибка",
-            message: (err?.response?.data as any)?.message || "Что-то пошло не так...",
-            color: "red",
-          });
-        });
-    },
-    [orderId],
-  );
 
   function acceptHandler() {
     io?.emit("prompt");

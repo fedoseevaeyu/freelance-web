@@ -5,12 +5,15 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 
+import useUser from "@lib/use-user";
+import { handleAxiosError } from "@lib/notify";
 import { uploadFile, uploadFiles } from "@utils/upload";
 import { useServiceStore } from "@app/(create)/service/store";
 import { FormState } from "@app/(create)/service/form-state";
 
 export default function useSubmit(formState: UseFormReturnType<FormState>) {
   const { push } = useRouter();
+  const { isAuth } = useUser();
 
   const tags = useServiceStore((store) => store.tags);
   const images = useServiceStore((store) => store.images);
@@ -21,51 +24,41 @@ export default function useSubmit(formState: UseFormReturnType<FormState>) {
 
   const handleSubmit = useCallback(
     async (values: typeof formState.values) => {
-      const token = null;
-      if (!token)
+      if (!isAuth) {
         return showNotification({
-          title: "Unauthorized",
-          message: "Please login to continue",
+          title: "Сессия истекла",
+          message: "Пожалуйста, войдите снова",
           color: "red",
           icon: <IconX />,
         });
+      }
       setLoading(true);
 
       if (!bannerImage) {
         setLoading(false);
         return showNotification({
-          title: "Banner Image is required",
-          message: "Please upload a banner image",
+          title: "Обложка обязательна",
+          message: "Пожалуйста, добавьте обложку",
           color: "red",
           icon: <IconX />,
         });
       }
-      const upload = await uploadFile(bannerImage, token).catch(() => null);
+      const upload = await uploadFile(bannerImage).catch(handleAxiosError);
       if (upload === null) {
         setLoading(false);
-        return showNotification({
-          title: "Error",
-          message: "Something went wrong while uploading the banner image",
-          color: "red",
-          icon: <IconX />,
-        });
+        return;
       }
       const { path: bannerImagePath } = upload.data;
       let imagePaths: string[] = [];
       if (images.length > 0) {
-        const uploads = await uploadFiles(images, token).catch(() => null);
+        const uploads = await uploadFiles(images).catch(handleAxiosError);
         if (uploads === null) {
           setLoading(false);
-          return showNotification({
-            title: "Error",
-            message: "Something went wrong while uploading the images",
-            color: "red",
-            icon: <IconX />,
-          });
+          return;
         }
         imagePaths = uploads.data.paths;
       }
-      const username = "test";
+      const token = "";
       axios
         .post(
           "/api/services",
@@ -74,11 +67,12 @@ export default function useSubmit(formState: UseFormReturnType<FormState>) {
             category: values.category,
             description: values.description,
             features,
-            packages: values.packages!.map((p) => ({
-              ...p,
-              price: Number(p.price),
-            })),
-            questions: values.questions!,
+            packages:
+              values.packages?.map((p) => ({
+                ...p,
+                price: Number(p.price),
+              })) ?? [],
+            questions: values.questions ?? [],
             tags: tags.map((tag) => tag.value),
             title: values.title,
             images: imagePaths,
@@ -91,7 +85,7 @@ export default function useSubmit(formState: UseFormReturnType<FormState>) {
         )
         .then((d) => d.data)
         .then((d) => {
-          push(`/profile/${username}/service/${d.slug}`);
+          push(`/my/service/${d.slug}`);
         })
         .catch((err) => {
           console.log(err.response);
@@ -100,7 +94,7 @@ export default function useSubmit(formState: UseFormReturnType<FormState>) {
           setLoading(false);
         });
     },
-    [formState, images, push, tags],
+    [bannerImage, features, formState, images, isAuth, push, tags],
   );
 
   return { handleSubmit, loading };

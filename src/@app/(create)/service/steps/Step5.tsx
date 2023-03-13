@@ -2,7 +2,6 @@ import { Button, FileButton, Group, Image, Paper, Text } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import { IconUpload, IconX } from "@tabler/icons-react";
-import React from "react";
 
 import NextButton from "../components/NextButton";
 
@@ -38,6 +37,7 @@ export default function Step5({ formState }: { formState: UseFormReturnType<Form
                   <Image
                     className="cursor-pointer rounded-md w-full h-full min-h-[250px] min-w-[250px] max-h-[250px] max-w-[250px]"
                     src={URL.createObjectURL(bannerImage)}
+                    alt="Обложка"
                     onClick={onClick}
                     classNames={{
                       image: "object-cover  rounded-md",
@@ -65,6 +65,7 @@ export default function Step5({ formState }: { formState: UseFormReturnType<Form
             <div className="relative">
               <Image
                 className="cursor-pointer rounded-md"
+                alt="Изображение"
                 width={100}
                 height={100}
                 src={URL.createObjectURL(f)}

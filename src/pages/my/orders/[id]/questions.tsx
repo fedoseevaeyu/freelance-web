@@ -1,12 +1,14 @@
-import Layout from "@app/layout";
-import { uploadFile } from "@utils//upload";
 import { Button, Container, FileInput, Group, LoadingOverlay, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
-import axios, { isCancel } from "axios";
-import Route from "config/routes";
+import axios from "axios";
 import { useRouter } from "next/router";
 import React, { Fragment, useEffect, useState } from "react";
+
+import Route from "config/routes";
+import { uploadFile } from "@utils//upload";
+import { handleAxiosError } from "@lib/notify";
+import Layout from "@app/layout";
 
 type AnswerType = "TEXT" | "MULTIPLE_CHOICE" | "ATTACHMENT";
 export type ChatQuestions = {
@@ -53,14 +55,7 @@ const QuestionsPage = () => {
           });
         setQuestionsAnswered(answered);
       })
-      .catch((err) => {
-        if (isCancel(err)) return;
-        showNotification({
-          title: "Error",
-          message: (err?.response?.data as any)?.message || "Что-то пошло не так...",
-          color: "red",
-        });
-      });
+      .catch(handleAxiosError);
     return () => controller.abort();
   }, [asPath, isReady, query.chatId, query.id, query.username, replace]);
 
@@ -83,14 +78,7 @@ const QuestionsPage = () => {
       })
       .then((d) => d.data)
       .then(setQuestions)
-      .catch((err) => {
-        if (isCancel(err)) return;
-        showNotification({
-          title: "Ошибка",
-          message: (err?.response?.data as any)?.message || "Что-то пошло не так...",
-          color: "red",
-        });
-      });
+      .catch(handleAxiosError);
   }, [asPath, query.chatId, questionsAnswered, replace]);
   const formState = useForm({
     initialValues: {},
@@ -113,15 +101,9 @@ const QuestionsPage = () => {
             }[] = [];
             for (const key in vals) {
               if (vals[key] instanceof File) {
-                const data = await uploadFile(vals[key], "asdfdf").catch((err) => {
-                  setLoading(false);
-                  showNotification({
-                    title: "Error",
-                    message: (err?.response?.data as any)?.message || "Something went wrong",
-                    color: "red",
-                  });
-                  return null;
-                });
+                const data = await uploadFile(vals[key])
+                  .catch(handleAxiosError)
+                  .finally(() => setLoading(false));
                 if (data === null) return;
                 const url = data.data.path;
                 answers.push({
@@ -156,13 +138,7 @@ const QuestionsPage = () => {
                   pathname: `/my/orders/${query.id}/chat`,
                 });
               })
-              .catch((d) => {
-                showNotification({
-                  title: "Ошибка",
-                  message: d?.response?.data?.message || "Что-то пошло не так...",
-                  color: "red",
-                });
-              })
+              .catch(handleAxiosError)
               .finally(() => {
                 setLoading(false);
               });

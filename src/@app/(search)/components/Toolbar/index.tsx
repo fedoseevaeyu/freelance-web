@@ -52,9 +52,11 @@ export default function Toolbar() {
     formState.setFieldValue("type", query.type as string);
     formState.setFieldValue("category", query.category as string);
     formState.resetDirty();
-  }, [isReady, query.category, query.q, query.type]);
+  }, [formState, isReady, query.category, query.q, query.type]);
 
-  async function refetchSearchResults() {}
+  async function refetchSearchResults() {
+    // todo
+  }
 
   function handleChangeParam(key: string) {
     return async function (val: string) {

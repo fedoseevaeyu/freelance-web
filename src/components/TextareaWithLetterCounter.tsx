@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { clsx } from "@mantine/core";
 
 import Textarea, { TextareaProps } from "@components/Textarea";
 

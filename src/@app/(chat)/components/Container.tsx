@@ -15,7 +15,7 @@ interface Props {
 
 export type message = {
   id: string;
-  attachments: Array<any>;
+  attachments: Array<{ id: string; src: string; name: string }>;
   content: string;
   client?: {
     id: string;

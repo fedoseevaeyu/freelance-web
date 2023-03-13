@@ -1,11 +1,11 @@
 import { Anchor, Button, Container, Group, Paper, PasswordInput, Stack, Text, TextInput } from "@mantine/core";
 import Link from "next/link";
 import { useForm } from "@mantine/form";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { showNotification } from "@mantine/notifications";
-import { upperFirst } from "@mantine/hooks";
 import { useRouter } from "next/router";
 
+import { handleAxiosError } from "@lib/notify";
 import Route from "config/routes";
 import { passwordFormValidate } from "@utils/validate/password";
 import { emailFormValidate } from "@utils/validate/email";
@@ -37,23 +37,13 @@ export default function Page() {
       })
       .then((e: AxiosResponse) => e.data)
       .then((e: { username: string }) => {
-        // set global user
-        // set cookie
         showNotification({
-          message: `Добро пожаловать назад, @${upperFirst(e.username)}`,
+          message: `Добро пожаловать назад, @${e.username}`,
           color: "green",
         });
-        setTimeout(() => {
-          replace((query.to as string) || "/dashboard");
-        }, 1000);
+        void replace((query.to as string) || Route.My);
       })
-      .catch((err: AxiosError<{ errors?: { message: string }[]; message: string }>) => {
-        const data = err?.response?.data;
-        showNotification({
-          message: data?.errors?.[0].message || data?.message || "Что-то пошло не так...",
-          color: "red",
-        });
-      });
+      .catch(handleAxiosError);
   }
 
   return (

@@ -4,6 +4,7 @@ import { IconPhoto } from "@tabler/icons-react";
 import { useState } from "react";
 import { Socket } from "socket.io-client";
 
+import { handleAxiosError } from "@lib/notify";
 import { uploadFiles } from "@utils/upload";
 import { useChatModalsStore } from "@app/(chat)/store/modals";
 
@@ -45,7 +46,11 @@ const ValueComponent: FileInputProps["valueComponent"] = ({ value }) => {
     );
   }
 
-  return <Value file={value!} />;
+  if (!value) {
+    return <></>;
+  }
+
+  return <Value file={value} />;
 };
 
 export default function AttachmentModal({ io }: { io?: Socket }) {
@@ -74,14 +79,7 @@ export default function AttachmentModal({ io }: { io?: Socket }) {
             });
           }
           setLoading(true);
-          const token = "";
-          const data = await uploadFiles(attachments, token).catch((e) => {
-            showNotification({
-              message: e?.response?.data?.message || "Что-то пошло не так...",
-              color: "red",
-            });
-            return null;
-          });
+          const data = await uploadFiles(attachments).catch(handleAxiosError);
           if (data === null) return setLoading(false);
           const urls = data.data.paths;
           io?.emit("message", {

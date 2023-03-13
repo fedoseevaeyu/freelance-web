@@ -1,6 +1,5 @@
-import { Avatar, Button, Group, Image } from "@mantine/core";
+import { Avatar, Button, Group, clsx } from "@mantine/core";
 import { IconFile } from "@tabler/icons-react";
-import clsx from "clsx";
 
 import { r } from "@utils/date";
 
